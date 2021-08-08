@@ -1,0 +1,23 @@
+<div>
+  <div>
+      Username: <input type="text" [(ngModel)]="this.username"/>
+  </div>
+  <div>
+      Password: <input type="password" [(ngModel)]="this.password"/>
+  </div>
+  <div>
+      Re-type Password: <input type="password" [(ngModel)]="this.repassword"/>
+  </div>
+  <div ng-if="this.errorPwdNoMatch">
+      The passwords does not match
+  </div>
+  <div ng-if="this.signupError">
+      {{this.signupError}}
+  </div>
+  <div>
+      <button (click)="this.signup()">Signup</button>
+  </div>
+  <div>
+      Already have an account? <a href="#!/login/">Login</a>
+  </div>
+</div>

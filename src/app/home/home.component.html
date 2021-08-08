@@ -1,0 +1,14 @@
+<div>
+  <div>User sessions:</div>
+  <div *ngIf="this.userSessionsError">An error have been occurs. Try it later</div>
+  <div *ngIf="this.userSessions">
+      <table>
+          <thead>
+              <th>Last sessions</th>
+          </thead>
+          <tr *ngFor="let userSession in this.userSessions">
+              <td>{{userSession.sessionDate | date : "dd/MM/yyyy 'at' h:mma"}}</td>
+          </tr>
+      </table>
+  </div>
+</div>

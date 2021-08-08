@@ -1,0 +1,15 @@
+<div>
+  <div *ngIf="this.loginError">Login error, check and try again</div>
+  <div>
+      Username: <input type="text" [(ngModel)]="username"/>
+  </div>
+  <div>
+      Password: <input type="password" [(ngModel)]="this.password"/>
+  </div>
+  <div>
+      <button (click)="this.login()">Login</button>
+  </div>
+  <div>
+      Don't have an account yet? <a href="/signup">Signup</a>
+  </div>
+</div>
