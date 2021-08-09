@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from '../model/user';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,18 +11,23 @@ import { User } from '../model/user';
 })
 export class LoginComponent {
 
-  username: string = "";
-  password: string = "";
+  user: User = new User();
 
   loginError: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private userService: UserService) {
 
   }
 
   login() {
-    //TODO:
-    this.router.navigate(['./home']);
+    this.userService.login(this.user).subscribe(
+      data => {
+        if (data == true) {
+            this.router.navigate(['./home']);
+        }
+      }
+    );
   }
 
 }

@@ -1,10 +1,10 @@
 <div>
   <div *ngIf="this.loginError">Login error, check and try again</div>
   <div>
-      Username: <input type="text" [(ngModel)]="username"/>
+      Username: <input type="text" [(ngModel)]="this.user.username"/>
   </div>
   <div>
-      Password: <input type="password" [(ngModel)]="this.password"/>
+      Password: <input type="password" [(ngModel)]="this.user.password"/>
   </div>
   <div>
       <button (click)="this.login()">Login</button>
