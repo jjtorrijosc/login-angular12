@@ -7,12 +7,20 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { User } from 'src/app/model/user';
+import { UserSession } from 'src/app/model/user.session';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+const httpOptionsTextResponses = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'responseType': 'text/plain'
+  })
+};
 const loginUrl = '/login';
 const signUpUrl = '/usuario/sign-up';
+const userSessionsUrl = '/user-sessions';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +34,7 @@ export class UserService {
     this.user = new User();
   }
 
-  login (user: User): Observable<boolean> {
+  login(user: User): Observable<boolean> {
     return this.http.get<boolean>(
               environment.urlBackend + loginUrl
                + '?username=' + user.username
@@ -47,25 +55,33 @@ export class UserService {
         )
   }
 
-  signUp (user: User): Observable<void> {
-  	return this.http.post<void>( environment.urlBackend + signUpUrl,
+  signUp(user: User): Observable<String> {
+  	return this.http.post<String>( environment.urlBackend + signUpUrl,
             JSON.stringify(user),
-            httpOptions
+            httpOptionsTextResponses
         ).pipe(
-    //         catchError(this.handleError('signUp', null))
+          catchError(this.handleError('signUp', "")),
           tap (
-            (httpStatus) => {
-              //if (httpStatus) {
+            (data) => {
+              if (data != null) {
                 this.user = user;
                 this.$obUsuario.next(user);
-              //}
+              }
             }
           )
         );
   }
 
-  logOut() {
-    this.user = new User;
+  getUserSessions(): Observable<Array<UserSession>> {
+  	return this.http.get<Array<UserSession>>(environment.urlBackend + userSessionsUrl
+            +'?username='+this.user.username
+        ).pipe(
+          catchError(this.handleError('signUp', Array<UserSession>()))
+        );
+  }
+
+  logOut(): void {
+    this.user = new User();
     this.$obUsuario.next(this.user);
   }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from '../model/user';
@@ -20,12 +20,22 @@ export class LoginComponent {
 
   }
 
-  login() {
+  ngOnInit(): void {
+    this.loginError = false;
+  }
+
+  login(): void {
     this.userService.login(this.user).subscribe(
       data => {
         if (data == true) {
             this.router.navigate(['./home']);
+        } else {
+            this.loginError = true;
         }
+      },
+      error => {
+        console.log('error login '+error.error);
+        this.loginError = true;
       }
     );
   }

@@ -1,3 +1,3 @@
 export class UserSession {
-  date: Date = new Date();
+  sessionDate: Date;
 }

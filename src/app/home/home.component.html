@@ -6,7 +6,7 @@
           <thead>
               <th>Last sessions</th>
           </thead>
-          <tr *ngFor="let userSession in this.userSessions">
+          <tr *ngFor="let userSession of this.userSessions">
               <td>{{userSession.sessionDate | date : "dd/MM/yyyy 'at' h:mma"}}</td>
           </tr>
       </table>

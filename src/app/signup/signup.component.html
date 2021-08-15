@@ -8,10 +8,10 @@
   <div>
       Re-type Password: <input type="password" [(ngModel)]="this.repassword"/>
   </div>
-  <div ng-if="this.errorPwdNoMatch">
+  <div *ngIf="this.errorPwdNoMatch">
       The passwords does not match
   </div>
-  <div ng-if="this.signupError">
+  <div *ngIf="this.signupError">
       {{this.signupError}}
   </div>
   <div>

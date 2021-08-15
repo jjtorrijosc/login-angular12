@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
+
+import { UserService } from '../services/user/user.service';
 import { UserSession } from '../model/user.session';
 
 @Component({
@@ -9,14 +11,22 @@ import { UserSession } from '../model/user.session';
 })
 export class HomeComponent implements OnInit {
 
-  userSessions : UserSession[];
-  userSessionsError : boolean = false;
+  userSessions : Array<UserSession>;
+  userSessionsError : boolean;
 
-  constructor() {
-    this.userSessions = [];
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
+    this.userSessionsError = false;
+    this.userService.getUserSessions().subscribe(
+      data => {
+        this.userSessions = data;
+      },
+      error => {
+        this.userSessionsError = true;
+      }
+    );
   }
 
 }
